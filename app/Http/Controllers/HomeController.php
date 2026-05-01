@@ -14,10 +14,10 @@ class HomeController extends Controller
             ->get()
             ->map(function ($r) {
                 return [
-                    'title' => '予約済み ' . substr($r->start_time, 0, 5) . '〜' . substr($r->end_time, 0, 5),
+                    'title' => '×',
                     'start' => $r->date . 'T' . $r->start_time,
                     'end'   => $r->date . 'T' . $r->end_time,
-                    'color' => '#ef4444',
+                    'color' => '#ff0000',
                 ];
             });
 

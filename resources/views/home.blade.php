@@ -47,8 +47,11 @@
         document.addEventListener('DOMContentLoaded', function () {
             const calendarEl = document.getElementById('calendar');
             const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
+                initialView: 'timeGridWeek',
                 locale: 'ja',
+                slotMinTime: '10:00:00',
+                slotMaxTime: '20:00:00',
+                displayEventTime: false,
                 events: @json($calendarEvents),
             });
             calendar.render();
