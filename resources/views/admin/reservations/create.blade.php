@@ -39,8 +39,14 @@
 
                 <div class="mb-4">
                     <x-input-label for="start_time" value="開始時間" />
-                    <x-text-input id="start_time" name="start_time" type="time" class="mt-1 block w-full"
-                        value="{{ old('start_time') }}" required />
+                    <select id="start_time" name="start_time" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                        <option value="">選択してください</option>
+                        @foreach (range(10, 19) as $hour)
+                            <option value="{{ sprintf('%02d:00', $hour) }}" {{ old('start_time') === sprintf('%02d:00', $hour) ? 'selected' : '' }}>
+                                {{ sprintf('%02d:00', $hour) }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-6">

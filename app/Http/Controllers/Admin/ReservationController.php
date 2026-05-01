@@ -33,13 +33,17 @@ class ReservationController extends Controller
         $validated = $request->validate([
             'user_id' => ['required', 'exists:users,id'],
             'date' => ['required', 'date', 'after_or_equal:today'],
-            'start_time' => ['required', 'date_format:H:i'],
+            'start_time' => ['required', 'date_format:H:i', 'after_or_equal:10:00', 'before_or_equal:20:00'],
             'duration' => ['required', 'integer', 'min:1', 'max:3'],
         ]);
 
         $court = Court::first();
         $startTime = $validated['start_time'];
         $endTime = date('H:i', strtotime($startTime . ' +' . $validated['duration'] . ' hours'));
+
+        if ($endTime > '20:00') {
+            return back()->withErrors(['start_time' => '営業時間内（10:00〜20:00）でご予約ください。'])->withInput();
+        }
 
         // 同日1予約チェック
         $alreadyReserved = Reservation::where('user_id', $validated['user_id'])
